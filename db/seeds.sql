@@ -1,6 +1,6 @@
 use burgers_db;
 
-insert into burgers (name, eaten)
+insert into burgers (burger_name, devoured)
 values('Animal Style', 0),
       ('ShackBurger', 0),
       ('Bacon Cheeseburger', 0),

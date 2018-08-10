@@ -1,0 +1,69 @@
+<div class="jumbotron" style="text-align: center">
+    <h1>burger manager</h1>
+    <input type="text" name="burgerName" id="burger-name" placeholder="enter a new burger">
+    <input type="submit" class="new-burger btn-success">
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>want to eat</h1>
+            <ul class="uneaten list-group">
+            {{#each burgers}} 
+                {{#unless this.devoured}}
+                  <li class="burger{{this.id}} list-group-item" data-id={{this.id}}>{{this.burger_name}}
+                    <button class="btn-primary devour" data-id={{this.id}}>devoured</button>
+                  </li> 
+                {{/unless}} 
+            {{/each}}
+            </ul>
+        </div>
+        <div class="col">
+            <h1>eaten</h1>
+            <ul class="eaten list-group">
+            {{#each burgers}} 
+                {{#if this.devoured}}
+                  <li class="burger{{this.id}} list-group-item" data-id={{this.id}}>{{this.burger_name}}</li> 
+                {{/if}} 
+            {{/each}}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(document).on('click', '.new-burger', function(e) {
+        e.preventDefault();
+        var burger_name = $('#burger-name').val();
+        $.ajax({
+            url: '/',
+            method: 'post',
+            data: { burger_name: burger_name, devoured: 0 },
+            success: function(res) {
+                $('.uneaten').append(
+                    `<li class="burger${res[1]} list-group-item" data-id=${res[1]}>${res[0].burger_name}
+                        <button class="devour btn-primary" data-id=${res[1]}>devoured</button>
+                    </li>`
+                );
+            }
+        });
+        $('#burger-name').val('');
+    });
+
+    $(document).on('click', '.devour', function(e) {
+        var id = $(this).data('id');
+        $.ajax({
+            url: '/update/' + id,
+            method: 'put',
+            data: { id: id, devoured: 1 },
+            success: function(res) {
+                var eaten = $(`.burger${id}`);
+                eaten.remove();
+                eaten.children().remove();
+                $('.eaten').append(eaten);                
+            }
+        });
+    });
+
+</script>
