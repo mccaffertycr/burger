@@ -11,7 +11,7 @@
 * git clone the repository - https://github.com/mccaffertycr/burger
 * navigate to where the repository exists using Git Bash or Terminal
 * run the command `npm install` to download the required dependancies
-* then run the command `node server.js` to start the program
+* run the command `node server.js` to start the program
 
 ## Notes
 
