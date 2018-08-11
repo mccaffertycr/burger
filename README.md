@@ -4,7 +4,7 @@
 
 * burger manager is an app that utilizes Node.js / Express / Handlebars / MySQL
 * it allows you to manage the burgers you want to eat and saves a record of the burgers you have tried
-* live demo:
+* live demo: https://burger-manager.herokuapp.com/
 
 ## To Install
 
